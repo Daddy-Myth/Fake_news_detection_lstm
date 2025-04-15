@@ -1,105 +1,151 @@
-📰 Fake News Detection using LSTM
-This project focuses on building a deep learning model using LSTM (Long Short-Term Memory) networks to detect whether a news article is real or fake. The solution leverages Natural Language Processing (NLP) techniques, pre-trained GloVe word embeddings, and a stacked LSTM architecture to classify news articles based on their content.
+# 📰 Fake News Detection using LSTM
 
-🚀 Overview
-Fake news has become a major issue in the digital age. This project aims to build a robust text classification model that can accurately identify fake news using deep learning.
+[![Python](https://img.shields.io/badge/Python-3.7%2B-blue?logo=python)](https://www.python.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?logo=tensorflow)](https://www.tensorflow.org/)
+[![Colab](https://img.shields.io/badge/Google%20Colab-Notebook-yellow?logo=google-colab)](https://colab.research.google.com/drive/1GYPvpXhklWbWDs6cHifhQO9rYp2nbkmt)
 
-The dataset is preprocessed to clean and tokenize the text, and pre-trained GloVe embeddings are used to provide semantic meaning. The model is trained on this data using a two-layer LSTM followed by fully connected layers for classification.
+A deep learning-based fake news detector built using LSTM (Long Short-Term Memory) networks and pre-trained GloVe word embeddings.
 
-🧠 Model Architecture
-Embedding Layer using pre-trained GloVe vectors
+---
 
-Dropout to reduce overfitting
+## 📌 Problem Statement
 
-Stacked LSTM Layers for sequence learning
+In an age where misinformation spreads rapidly, detecting fake news is more critical than ever. This project aims to build a binary classification model that can accurately identify fake news articles based on their textual content.
 
-Dense Layers for final classification
+---
 
-Sigmoid Activation for binary output (Fake or Real)
+## 🧠 Model Overview
 
-📁 Dataset
-The dataset contains labeled news articles with columns like:
+- **Text Preprocessing**: Cleaning, tokenization, stopword removal
+- **Word Embedding**: Pre-trained GloVe (100-dimensional vectors)
+- **Model Architecture**:
+  - Embedding Layer (non-trainable)
+  - Dropout
+  - 2x LSTM Layers
+  - Dense Layers
+  - Sigmoid Output Layer
 
-id (Dropped)
+---
 
-title (Dropped)
+## 📁 Dataset
 
-author (Dropped)
+The dataset includes:
 
-text (Used)
+- `text` - Full news article content
+- `label` - 0 = Real, 1 = Fake
 
-label (Target: 0 = Real, 1 = Fake)
+The following columns are dropped: `id`, `title`, `author`.
 
-Dataset used: train.csv
+Dataset used: `train.csv`
 
-🧹 Preprocessing
-Lowercasing text
+---
 
-Removing punctuation and newline characters
+## 🧹 Data Preprocessing
 
-Removing stopwords
+- Convert text to lowercase
+- Remove punctuation and special characters
+- Remove stopwords using NLTK
+- Tokenize and pad sequences (max length = 500)
 
-Tokenization
+---
 
-Padding sequences for uniform input size
+## 📊 Exploratory Data Analysis
 
-📊 Exploratory Data Analysis
-Word clouds of overall, real, and fake news content to visualize frequent words
+Word clouds were generated to visualize frequently used words in:
 
-🔤 Embedding
-Tokenizer converts words to sequences
+- All news
+- Real news (`label = 0`)
+- Fake news (`label = 1`)
 
-Pre-trained GloVe embeddings (glove.6B.100d.txt) used to create an embedding matrix
+---
 
-Embedding layer initialized with GloVe weights
+## 🔤 Word Embedding
 
-⚙️ Model Training
-Binary classification using binary_crossentropy loss
+Pre-trained GloVe embeddings (`glove.6B.100d.txt`) are used to convert words into semantic vectors. A custom embedding matrix is built to map vocabulary to embeddings.
 
-Optimizer: Adam
+---
 
-10 epochs
+## ⚙️ Model Training
 
-Batch size: 128
+- **Loss Function**: Binary Crossentropy
+- **Optimizer**: Adam
+- **Batch Size**: 128
+- **Epochs**: 10
+- **Validation Split**: 20%
 
-Stratified train-test split for balanced class distribution
+Training and validation accuracy/loss are plotted after training.
 
-📈 Evaluation
-Plots included:
+---
 
-Training vs Validation Accuracy
+## 📦 Dependencies
 
-Training vs Validation Loss
+Install the required packages using:
 
-These metrics help evaluate model performance over epochs.
+```bash
+pip install nltk wordcloud
 
-📦 Dependencies
-Install the required libraries using pip:
+## 🧪 How to Run This Project
+
+Follow these steps to run the model:
+
+---
+
+### 🛠 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/fake-news-detection-lstm.git
+cd fake-news-detection-lstm
+📦 2. Install Dependencies
+Install dependencies locally:
 
 bash
 Copy
 Edit
-pip install wordcloud nltk
-Also, download NLTK stopwords using:
+pip install -r requirements.txt
+Or, if using Google Colab, install directly in a notebook cell:
 
 python
 Copy
 Edit
+!pip install nltk wordcloud
 import nltk
 nltk.download('stopwords')
-🧪 Usage
-To run this notebook:
+📂 3. Prepare Dataset & Embeddings
+Make sure the following files are in your project root or upload them in Colab when prompted:
 
-Upload train.csv and glove.6B.100d.txt to your Colab environment.
+train.csv — the labeled news dataset
 
-Run all cells in order.
+glove.6B.100d.txt — pre-trained GloVe embeddings (100d)
 
-Review the plots to evaluate model performance.
+Directory structure:
 
-📌 Notes
-This project is run on Google Colab.
+Copy
+Edit
+fake-news-detection-lstm/
+├── train.csv
+├── glove.6B.100d.txt
+├── Fake_news_detection_LSTM.ipynb
+└── README.md
+🚀 4. Run the Notebook
+Open the Jupyter notebook locally or in Colab and run all cells in order:
 
-Large GloVe embeddings file is required (100d version used).
+Open Fake_news_detection_LSTM.ipynb
 
-Focus is on proof-of-concept, not production deployment.
+Google Colab:
+🔗 Open in Colab
 
+📈 Output
+✅ Word clouds for real and fake news
+
+📊 Training vs. Validation Accuracy and Loss plots
+
+🔍 Final model performance metrics
+
+🛠️ Future Improvements
+🔄 Use Bidirectional LSTM or GRU
+
+🎯 Add an Attention mechanism
+
+🌐 Deploy via Flask API or Streamlit
+
+🤖 Experiment with Transformer models like BERT
